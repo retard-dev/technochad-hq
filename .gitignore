@@ -1,0 +1,7 @@
+*.pem
+*.key
+*.pass
+*.seed
+identity*
+.local/
+output/
