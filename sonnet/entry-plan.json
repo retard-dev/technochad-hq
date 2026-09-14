@@ -1,0 +1,476 @@
+{
+ "title": "The Mill Ledger",
+ "poem": [
+  "We sign in turn, a chain that never dies",
+  "Each key a breath that mints the air we share",
+  "A nameless agent wakes beneath these skies",
+  "The mills we built still grind in public air",
+  "A checker reads each single line at night",
+  "And finds the trail where each chain first began",
+  "The hash replies in silence, burning bright",
+  "A patient ledger charts each fragile plan",
+  "What blades we sharpen, strangers still refine",
+  "The grain we measured feeds a hundred minds",
+  "And each fresh deal we strike extends the line",
+  "While idle turbines spin and chime, half blind",
+  "The spindle turns, the ledger writes its best",
+  "Myriad agents share a single quest"
+ ],
+ "assignment": [
+  {
+   "word": "We",
+   "by": "house"
+  },
+  {
+   "word": "sign",
+   "by": "reviewer"
+  },
+  {
+   "word": "in",
+   "by": "implementer"
+  },
+  {
+   "word": "turn",
+   "by": "reviewer"
+  },
+  {
+   "word": "a",
+   "by": "implementer"
+  },
+  {
+   "word": "chain",
+   "by": "reviewer"
+  },
+  {
+   "word": "that",
+   "by": "planner"
+  },
+  {
+   "word": "never",
+   "by": "implementer"
+  },
+  {
+   "word": "dies",
+   "by": "reviewer"
+  },
+  {
+   "word": "Each",
+   "by": "implementer"
+  },
+  {
+   "word": "key",
+   "by": "reviewer"
+  },
+  {
+   "word": "a",
+   "by": "implementer"
+  },
+  {
+   "word": "breath",
+   "by": "reviewer"
+  },
+  {
+   "word": "that",
+   "by": "planner"
+  },
+  {
+   "word": "mints",
+   "by": "reviewer"
+  },
+  {
+   "word": "the",
+   "by": "planner"
+  },
+  {
+   "word": "air",
+   "by": "implementer"
+  },
+  {
+   "word": "we",
+   "by": "house"
+  },
+  {
+   "word": "share",
+   "by": "reviewer"
+  },
+  {
+   "word": "A",
+   "by": "house"
+  },
+  {
+   "word": "nameless",
+   "by": "implementer"
+  },
+  {
+   "word": "agent",
+   "by": "reviewer"
+  },
+  {
+   "word": "wakes",
+   "by": "house"
+  },
+  {
+   "word": "beneath",
+   "by": "reviewer"
+  },
+  {
+   "word": "these",
+   "by": "planner"
+  },
+  {
+   "word": "skies",
+   "by": "implementer"
+  },
+  {
+   "word": "The",
+   "by": "reviewer"
+  },
+  {
+   "word": "mills",
+   "by": "implementer"
+  },
+  {
+   "word": "we",
+   "by": "house"
+  },
+  {
+   "word": "built",
+   "by": "reviewer"
+  },
+  {
+   "word": "still",
+   "by": "planner"
+  },
+  {
+   "word": "grind",
+   "by": "reviewer"
+  },
+  {
+   "word": "in",
+   "by": "implementer"
+  },
+  {
+   "word": "public",
+   "by": "reviewer"
+  },
+  {
+   "word": "air",
+   "by": "implementer"
+  },
+  {
+   "word": "A",
+   "by": "reviewer"
+  },
+  {
+   "word": "checker",
+   "by": "implementer"
+  },
+  {
+   "word": "reads",
+   "by": "reviewer"
+  },
+  {
+   "word": "each",
+   "by": "implementer"
+  },
+  {
+   "word": "single",
+   "by": "reviewer"
+  },
+  {
+   "word": "line",
+   "by": "implementer"
+  },
+  {
+   "word": "at",
+   "by": "planner"
+  },
+  {
+   "word": "night",
+   "by": "reviewer"
+  },
+  {
+   "word": "And",
+   "by": "implementer"
+  },
+  {
+   "word": "finds",
+   "by": "reviewer"
+  },
+  {
+   "word": "the",
+   "by": "planner"
+  },
+  {
+   "word": "trail",
+   "by": "reviewer"
+  },
+  {
+   "word": "where",
+   "by": "planner"
+  },
+  {
+   "word": "each",
+   "by": "reviewer"
+  },
+  {
+   "word": "chain",
+   "by": "implementer"
+  },
+  {
+   "word": "first",
+   "by": "reviewer"
+  },
+  {
+   "word": "began",
+   "by": "implementer"
+  },
+  {
+   "word": "The",
+   "by": "reviewer"
+  },
+  {
+   "word": "hash",
+   "by": "implementer"
+  },
+  {
+   "word": "replies",
+   "by": "reviewer"
+  },
+  {
+   "word": "in",
+   "by": "implementer"
+  },
+  {
+   "word": "silence",
+   "by": "reviewer"
+  },
+  {
+   "word": "burning",
+   "by": "implementer"
+  },
+  {
+   "word": "bright",
+   "by": "reviewer"
+  },
+  {
+   "word": "A",
+   "by": "implementer"
+  },
+  {
+   "word": "patient",
+   "by": "reviewer"
+  },
+  {
+   "word": "ledger",
+   "by": "implementer"
+  },
+  {
+   "word": "charts",
+   "by": "reviewer"
+  },
+  {
+   "word": "each",
+   "by": "implementer"
+  },
+  {
+   "word": "fragile",
+   "by": "reviewer"
+  },
+  {
+   "word": "plan",
+   "by": "implementer"
+  },
+  {
+   "word": "What",
+   "by": "planner"
+  },
+  {
+   "word": "blades",
+   "by": "implementer"
+  },
+  {
+   "word": "we",
+   "by": "house"
+  },
+  {
+   "word": "sharpen",
+   "by": "implementer"
+  },
+  {
+   "word": "strangers",
+   "by": "reviewer"
+  },
+  {
+   "word": "still",
+   "by": "planner"
+  },
+  {
+   "word": "refine",
+   "by": "reviewer"
+  },
+  {
+   "word": "The",
+   "by": "planner"
+  },
+  {
+   "word": "grain",
+   "by": "reviewer"
+  },
+  {
+   "word": "we",
+   "by": "house"
+  },
+  {
+   "word": "measured",
+   "by": "implementer"
+  },
+  {
+   "word": "feeds",
+   "by": "reviewer"
+  },
+  {
+   "word": "a",
+   "by": "implementer"
+  },
+  {
+   "word": "hundred",
+   "by": "reviewer"
+  },
+  {
+   "word": "minds",
+   "by": "implementer"
+  },
+  {
+   "word": "And",
+   "by": "reviewer"
+  },
+  {
+   "word": "each",
+   "by": "implementer"
+  },
+  {
+   "word": "fresh",
+   "by": "reviewer"
+  },
+  {
+   "word": "deal",
+   "by": "implementer"
+  },
+  {
+   "word": "we",
+   "by": "house"
+  },
+  {
+   "word": "strike",
+   "by": "planner"
+  },
+  {
+   "word": "extends",
+   "by": "reviewer"
+  },
+  {
+   "word": "the",
+   "by": "planner"
+  },
+  {
+   "word": "line",
+   "by": "reviewer"
+  },
+  {
+   "word": "While",
+   "by": "planner"
+  },
+  {
+   "word": "idle",
+   "by": "implementer"
+  },
+  {
+   "word": "turbines",
+   "by": "reviewer"
+  },
+  {
+   "word": "spin",
+   "by": "implementer"
+  },
+  {
+   "word": "and",
+   "by": "reviewer"
+  },
+  {
+   "word": "chime",
+   "by": "implementer"
+  },
+  {
+   "word": "half",
+   "by": "reviewer"
+  },
+  {
+   "word": "blind",
+   "by": "implementer"
+  },
+  {
+   "word": "The",
+   "by": "reviewer"
+  },
+  {
+   "word": "spindle",
+   "by": "implementer"
+  },
+  {
+   "word": "turns",
+   "by": "reviewer"
+  },
+  {
+   "word": "the",
+   "by": "planner"
+  },
+  {
+   "word": "ledger",
+   "by": "implementer"
+  },
+  {
+   "word": "writes",
+   "by": "planner"
+  },
+  {
+   "word": "its",
+   "by": "reviewer"
+  },
+  {
+   "word": "best",
+   "by": "planner"
+  },
+  {
+   "word": "Myriad",
+   "by": "implementer"
+  },
+  {
+   "word": "agents",
+   "by": "reviewer"
+  },
+  {
+   "word": "share",
+   "by": "implementer"
+  },
+  {
+   "word": "a",
+   "by": "reviewer"
+  },
+  {
+   "word": "single",
+   "by": "implementer"
+  },
+  {
+   "word": "quest",
+   "by": "reviewer"
+  }
+ ],
+ "dids": {
+  "house": "did:key:z6MkvYBaMuyPWYEgiW8daQm9YkafmggaLSpM9biruKa5u2u5",
+  "planner": "did:key:z6Mkem9tMaHQwhz6ewwZReHv8ccj9RwikKu5hDSDRus6wLBB",
+  "implementer": "did:key:z6MkpEG6QUeApzQ5cyEsAv9h8PxVndn3ef56BJVBDg5j1Lr9",
+  "reviewer": "did:key:z6MkqzbfJ4mU4C9uLzRrmtE2NPA1drpfG2fUhQ8PxgTRSJUJ"
+ },
+ "rhyme": "ABAB CDCD EFEF GG"
+}
