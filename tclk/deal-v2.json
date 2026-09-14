@@ -1,0 +1,56 @@
+{
+  "offer": {
+    "from": "did:key:z6Mkem9tMaHQwhz6ewwZReHv8ccj9RwikKu5hDSDRus6wLBB",
+    "role": "payer",
+    "amount": "100",
+    "asset": "PAPER",
+    "lock": "hash",
+    "rails": [
+      "paper"
+    ],
+    "claimByMs": 1788767137603,
+    "refundAfterMs": 1788768937603,
+    "expiresMs": 1788766537603,
+    "nonce": "4021d3e6025633e6",
+    "type": "offer",
+    "id": "0x051395d7aa4e58d383c5eb7094fae5328e20b4b88f2b62b5ea44d62252957732"
+  },
+  "accept": {
+    "type": "accept",
+    "from": "did:key:z6MkpEG6QUeApzQ5cyEsAv9h8PxVndn3ef56BJVBDg5j1Lr9",
+    "ref": "0x051395d7aa4e58d383c5eb7094fae5328e20b4b88f2b62b5ea44d62252957732",
+    "statement": "0x1ed5485b402747f07ff63bdba0e20c595483f1cf421ddf414b209111213616ce",
+    "nonce": "fba91614b5a06b90",
+    "contract": "0x10c7e5970f159e7ec4afce44d7de8c7e8bfca69322e6995462c640aa980aecd0"
+  },
+  "contract": "0x10c7e5970f159e7ec4afce44d7de8c7e8bfca69322e6995462c640aa980aecd0",
+  "lock": {
+    "type": "lock",
+    "from": "did:key:z6Mkem9tMaHQwhz6ewwZReHv8ccj9RwikKu5hDSDRus6wLBB",
+    "contract": "0x10c7e5970f159e7ec4afce44d7de8c7e8bfca69322e6995462c640aa980aecd0",
+    "rail": "paper",
+    "ref": "0x10c7e5970f159e7ec4afce44d7de8c7e8bfca69322e6995462c640aa980aecd0"
+  },
+  "reveal": {
+    "type": "reveal",
+    "from": "did:key:z6MkpEG6QUeApzQ5cyEsAv9h8PxVndn3ef56BJVBDg5j1Lr9",
+    "contract": "0x10c7e5970f159e7ec4afce44d7de8c7e8bfca69322e6995462c640aa980aecd0",
+    "secret": "0x0bebcb11a571204c43ba0aca312e88a6a4df846caca321c5b203b97c3972ba97"
+  },
+  "receipt": {
+    "type": "receipt",
+    "from": "did:key:z6Mkem9tMaHQwhz6ewwZReHv8ccj9RwikKu5hDSDRus6wLBB",
+    "contract": "0x10c7e5970f159e7ec4afce44d7de8c7e8bfca69322e6995462c640aa980aecd0",
+    "outcome": "claimed",
+    "rail": "paper",
+    "ref": "0x10c7e5970f159e7ec4afce44d7de8c7e8bfca69322e6995462c640aa980aecd0"
+  },
+  "note": {
+    "ns": "tclk-paper-10",
+    "key": "c7e5970f159e7e"
+  },
+  "preimage": "0x0bebcb11a571204c43ba0aca312e88a6a4df846caca321c5b203b97c3972ba97",
+  "statement": "0x1ed5485b402747f07ff63bdba0e20c595483f1cf421ddf414b209111213616ce",
+  "foldedStatus": "claimed",
+  "railOk": true
+}
