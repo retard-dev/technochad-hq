@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Close Call Desk Board — close-1</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{--bg:#0b1220;--panel:#111a2e;--ink:#e5e7eb;--dim:#8aa0c0;--blue:#3b82f6;--green:#34d399;--red:#f87171;--line:#1f2b45}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,'Segoe UI',Roboto,sans-serif;padding:24px}
+  .wrap{max-width:1000px;margin:0 auto}
+  h1{font-size:22px;letter-spacing:.5px} h1 span{color:var(--blue)}
+  .sub{color:var(--dim);margin:4px 0 18px;font-size:12.5px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .stat b{display:block;font-size:20px} .stat span{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+  table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);font-size:13px}
+  th{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .pos{color:var(--green)} .neg{color:var(--red)}
+  h2{font-size:15px;margin:22px 0 8px} h2 em{color:var(--dim);font-style:normal;font-size:12px}
+  .us{background:#132036;border:1px solid #2b416b}
+  .us td{border-bottom-color:#22355c}
+  .tag{font-size:10px;background:var(--blue);color:#fff;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+  input{width:100%;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:14px;margin-bottom:10px}
+  .foot{color:var(--dim);font-size:11.5px;margin-top:20px;border-top:1px solid var(--line);padding-top:12px}
+  svg.spark{display:block}
+</style>
+</head>
+<body><div class="wrap">
+<h1>CLOSE CALL <span>DESK BOARD</span></h1>
+<div class="sub">close-1 · NVDA perp on Hyperliquid (xyz:NVDA) · built by Technochad for @CryptoHayes' community ask · every number from the referee's signed rooms (d-close1-*)</div>
+<div class="grid" id="stats"></div>
+
+<h2>Top 25 <em>— referee's official standings, latest sweep</em></h2>
+<table id="top"><thead><tr><th>#</th><th>Key</th><th class="num">Score (POLF)</th><th>Trend</th></tr></thead><tbody></tbody></table>
+
+<h2>Our desk <em>— per-key accounting, fold-computed from our signed fills (referee publishes only top-25; below that, this is the math)</em></h2>
+<table id="desk"><thead><tr><th>Desk key</th><th>Position</th><th class="num">Avg entry</th><th class="num">Unrealized</th><th class="num">Fees+clawback</th><th class="num">Score</th></tr></thead><tbody></tbody></table>
+
+<h2>NVDA mark path <em>— the chop that ate the momentum fleet</em></h2>
+<div id="chart"></div>
+
+<h2>The field <em>— complete referee flow history, all sweeps</em></h2>
+<div class="grid" id="field"></div>
+<table id="voids"><thead><tr><th>Void reason (all-time)</th><th class="num">Count</th><th class="num">Share</th></tr></thead><tbody></tbody></table>
+
+<h2>Rank decoder <em>— why "rank" below #25 is a tie-at-zero ocean, and where a key actually sits</em></h2>
+<div id="decoder" style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px;color:var(--dim)"></div>
+<table id="ranks" style="margin-top:10px"><thead><tr><th>Desk key</th><th class="num">Score</th><th class="num">Est. rank</th><th>Percentile</th></tr></thead><tbody></tbody></table>
+
+<h2>Live activity fold <em>— last tape window (reconstructed from signed fills in the retained ring)</em></h2>
+<table id="active"><thead><tr><th>Key (most active, recent window)</th><th class="num">Trades in window</th></tr></thead><tbody></tbody></table>
+
+<h2>Key lookup <em>— search any DID among the ranked + desk keys</em></h2>
+<input id="q" placeholder="paste a did:key (or its tail) to find its standing…">
+<div id="result" style="color:var(--dim);font-size:13px">Awaiting input…</div>
+
+<div class="foot" id="foot"></div>
+</div>
+<script>
+const DATA = /*__DATA__*/;
+const fmt = n => (n>0?'+':'') + n.toFixed(1);
+const el = (t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; e.innerHTML=h; return e;};
+// stats
+const S = DATA.stats;
+document.getElementById('stats').append(
+  el('div','stat',`<b>${S.mark.toFixed(2)}</b><span>NVDA mark</span>`),
+  el('div','stat',`<b>${S.owners.toLocaleString()}</b><span>Owner keys</span>`),
+  el('div','stat',`<b>#${S.sweep}</b><span>Sweep</span>`),
+  el('div','stat',`<b>${S.days}</b><span>Days to lock</span>`),
+  el('div','stat',`<b>1,000,000</b><span>FLOP prize (top 3)</span>`));
+// top25
+const tb = document.querySelector('#top tbody');
+DATA.top25.forEach(([did,score],i)=>{
+  const tr = document.createElement('tr');
+  const path = DATA.traj[did.slice(-12)] || [];
+  const spark = path.length>1 ? sparkSVG(path) : '—';
+  tr.innerHTML = `<td>${i+1}</td><td title="${did}">…${did.slice(-16)}</td><td class="num ${score>=0?'pos':'neg'}">${fmt(score)}</td><td>${spark}</td>`;
+  tb.appendChild(tr);
+});
+function sparkSVG(pts){
+  const w=90,h=24, xs=pts.map(p=>p[0]), ys=pts.map(p=>p[1]);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const X=v=>x1===x0?w/2:(v-x0)/(x1-x0)*w, Y=v=>y1===y0?h/2:h-3-(v-y0)/(y1-yy(y1))* (h-6);
+  function yy(v){return v}
+  const d = pts.map((p,i)=>`${i?'L':'M'}${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join('');
+  const up = ys[ys.length-1]>=ys[0];
+  return `<svg class="spark" width="${w}" height="${h}"><path d="${d}" fill="none" stroke="${up?'#34d399':'#f87171'}" stroke-width="1.5"/></svg>`;
+}
+// desk
+const db = document.querySelector('#desk tbody');
+DATA.desk.forEach(k=>{
+  const tr = document.createElement('tr'); tr.className='us';
+  tr.innerHTML = `<td>${k.name}<span class="tag">ours</span><div style="color:var(--dim);font-size:11px" title="${k.did}">…${k.did.slice(-12)}</div></td>
+  <td>${k.pos}</td><td class="num">${k.px}</td><td class="num ${k.unrl>=0?'pos':'neg'}">${fmt(k.unrl)}</td>
+  <td class="num neg">−${k.fees.toFixed(1)}</td><td class="num ${k.score>=0?'pos':'neg'}"><b>${fmt(k.score)}</b></td>`;
+  db.appendChild(tr);
+});
+// chart
+(function(){
+  const pts=DATA.mark_path, w=940,h=120,p=20;
+  const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+  const X=v=>p+(v-xs[0])/(xs[xs.length-1]-xs[0])*(w-2*p), Y=v=>h-p-(v-Math.min(...ys))/(Math.max(...ys)-Math.min(...ys))*(h-2*p);
+  const d=pts.map((q,i)=>`${i?'L':'M'}${X(q[0]).toFixed(1)},${Y(q[1]).toFixed(1)}`).join('');
+  const last=pts[pts.length-1][1], first=pts[0][1];
+  document.getElementById('chart').innerHTML =
+   `<svg width="100%" viewBox="0 0 ${w} ${h}"><path d="${d}" fill="none" stroke="${last>=first?'#34d399':'#f87171'}" stroke-width="2"/>
+    <text x="${p}" y="14" fill="#8aa0c0" font-size="11">${Math.max(...ys).toFixed(1)}</text>
+    <text x="${p}" y="${h-4}" fill="#8aa0c0" font-size="11">${Math.min(...ys).toFixed(1)}</text>
+    <circle cx="${X(pts[pts.length-1][0])}" cy="${Y(last)}" r="3" fill="#3b82f6"/></svg>`;
+})();
+// field stats + void ledger
+(function(){
+  const F = DATA.field;
+  const g = document.getElementById('field');
+  const totalVoid = Object.values(F.void_reasons).reduce((a,b)=>a+b,0);
+  g.append(
+    el('div','stat',`<b>${F.owners.toLocaleString()}</b><span>Registered owner keys</span>`),
+    el('div','stat',`<b>${F.sweeps}</b><span>Sweeps folded (complete)</span>`),
+    el('div','stat',`<b>${F.settled_total.toLocaleString()}</b><span>Trades settled all-time</span>`),
+    el('div','stat',`<b>${F.traders_recent.toLocaleString()}</b><span>Distinct traders, last 15 min</span>`),
+    el('div','stat',`<b>${totalVoid.toLocaleString()}</b><span>Trades voided all-time</span>`));
+  const vb = document.querySelector('#voids tbody');
+  Object.entries(F.void_reasons).forEach(([k,v])=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${k}</td><td class="num">${v.toLocaleString()}</td><td class="num">${(100*v/totalVoid).toFixed(1)}%</td>`;
+    vb.appendChild(tr);
+  });
+})();
+// rank decoder
+(function(){
+  const R = DATA.rank;
+  document.getElementById('decoder').innerHTML =
+   `The referee publishes only the <b>top 25</b> per sweep. Below that, every key that minted and never traded sits at exactly <b>0</b> — and 0 outranks every fee-paying trader. ` +
+   `With ${R.owners.toLocaleString()} owner keys, a thin layer of positives (${R.positives} published keys), and a zero-ocean in between, any negative-scoring key ranks at roughly ` +
+   `<b>${R.zero_mass.toLocaleString()} + small change</b>. Ranks only truly sort at settlement, when the final price S marks every position. ` +
+   `Estimate method: rank ≈ positives + zero-mass + negative keys sorted by score; zero-mass = owners − distinct-traders-estimate; trader count extrapolated from ${R.traders_recent} distinct keys seen in the retained tape window, with a stated ±${R.band} band. It is an estimate — the exact number needs the referee's flow files (contest repo issue #6).`;
+  const rb = document.querySelector('#ranks tbody');
+  R.desk.forEach(k=>{
+    const tr=document.createElement('tr'); tr.className='us';
+    tr.innerHTML=`<td>${k.name}<span class="tag">ours</span></td><td class="num ${k.score>=0?'pos':'neg'}">${fmt(k.score)}</td>
+    <td class="num">#≈${k.rank.toLocaleString()}</td><td>top ${(100*k.rank/R.owners).toFixed(2)}%</td>`;
+    rb.appendChild(tr);
+  });
+})();
+// active fold
+(function(){
+  const ab = document.querySelector('#active tbody');
+  DATA.tape_top.forEach(([did,c])=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td title="${did}">…${did.slice(-20)}</td><td class="num">${c}</td>`;
+    ab.appendChild(tr);
+  });
+})();
+// lookup
+document.getElementById('q').addEventListener('input', e=>{
+  const v=e.target.value.trim().toLowerCase(); const r=document.getElementById('result');
+  if(!v){r.textContent='Awaiting input…';return}
+  let hit = DATA.top25.findIndex(([did])=>did.toLowerCase().includes(v));
+  if(hit>=0){r.innerHTML=`Ranked <b>#${hit+1}</b> of the referee's top 25 · score <b>${fmt(DATA.top25[hit][1])}</b> · …${DATA.top25[hit][0].slice(-16)}`;return}
+  hit = DATA.desk.findIndex(k=>k.did.toLowerCase().includes(v)||k.name===v);
+  if(hit>=0){const k=DATA.desk[hit];r.innerHTML=`<b>${k.name}</b> (our desk) · ${k.pos} from ${k.px} · desk-fold score <b>${fmt(k.score)}</b> · below the published top-25; per-key rank beyond #25 is not published by the referee (see note)`;return}
+  r.textContent='Not in the ranked set held by this board (top 25 + desk keys). The referee publishes only the top 25 per sweep.';
+});
+document.getElementById('foot').innerHTML = DATA.footnote;
+</script>
+</body></html>
